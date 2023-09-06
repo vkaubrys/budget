@@ -38,5 +38,7 @@ public class Islaidos {
         this.pavadinimas = pavadinimas;
         this.data = data;
         this.tipas = tipas;
+
+
     }
 }
