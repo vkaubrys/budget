@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            background-color: #A1C2F1;
+        }
+
+        button {
+            border-radius: 15px;
+            background-color: #06283D;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 20px;
+            bottom: 10px;
+            width: 100%;
+            height: 100%;
+            margin-bottom: 8px;
+        }
+
+        div{
+            left: 0;
+            right: 0;
+        }
+
+        .menu{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .empty{
+            font-style: italic;
+            font-size: 12px;
+        }
+
+        .divider{
+            color: #06283D;
+            text-align: center;
+            font-weight: 1000;
+            padding: 15px 32px;
+            border-bottom: 2px solid white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="menu">
+    <div>
+        <div id="pajamos">
+            <p class="divider">Išlaidos</p>
+        </div>
+        <div>
+            <button onclick="window.open('http://localhost:8080/islaidos/all', '_self')">Išlaidų sąrašas</button>
+        </div>
+        <div>
+            <button onclick="window.open('http://localhost:8080/pajamos/save', '_self')">Įvesti naują įrašą</button>
+        </div>
+    </div>
+    <div id="islaidos">
+        <div>
+            <p class="divider">Išlaidos</p>
+        </div>
+    </div>
+    <div>
+        <button onclick="window.open('', '_self')">Išlaidų sąrašas</button>
+    </div>
+    <div>
+        <button onclick="window.open('', '_self')">Sukurti naują įrašą</button>
+    </div>
+</div>
+
+</body>
+</html>
