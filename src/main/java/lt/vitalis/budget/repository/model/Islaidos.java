@@ -21,24 +21,22 @@ public class Islaidos {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "suma")
-    private Double suma;
+    @Column(name = "data")
+    private LocalDateTime data;
 
     @Column(name = "pavadinimas")
     private String pavadinimas;
 
-    @Column(name = "data")
-    private LocalDateTime data;
+    @Column(name = "suma")
+    private Double suma;
 
     @Column(name = "tipas")
     private String tipas;
 
-    public Islaidos(Double suma, String pavadinimas, LocalDateTime data, String tipas) {
-        this.suma = suma;
-        this.pavadinimas = pavadinimas;
+    public Islaidos(LocalDateTime data, String pavadinimas, Double suma, String tipas) {
         this.data = data;
+        this.pavadinimas = pavadinimas;
+        this.suma = suma;
         this.tipas = tipas;
-
-
     }
 }
