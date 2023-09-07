@@ -18,19 +18,19 @@ public class IslaidosController {
     private IslaidosService islaidosService;
 
     // http://localhost:8080/islaidos/all
-    @GetMapping(path = "/all")
-    public @ResponseBody List<Islaidos> generateDummyIslaidos() {
-        return islaidosService.getAll();
-    }
-
-//    @RequestMapping(value = "/all", method = RequestMethod.GET)
-//    public String getIslaidos(Model model){
-//        model.addAttribute("key_islaidos", new Islaidos());
-//        model.addAttribute("key_islaidos_list", islaidosService.getAll());
-//        return "islaidos_list";
+//    @GetMapping(path = "/all")
+//    public @ResponseBody List<Islaidos> generateDummyIslaidos() {
+//        return islaidosService.getAll();
 //    }
 
-//    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String getIslaidos(Model model){
+        model.addAttribute("key_islaidos", new Islaidos());
+        model.addAttribute("key_islaidos_list", islaidosService.getAll());
+        return "islaidos_list";
+    }
+
+//    @RequestMapping(value = "/search", method = RequestMethod.POST)
 //    public String getIslaidos(Model model, @ModelAttribute(value = "key_islaidos") Islaidos islaidos){
 //        model.addAttribute("key_islaidos", islaidos);
 //        model.addAttribute(
@@ -39,6 +39,13 @@ public class IslaidosController {
 //        );
 //        return "islaidos_list";
 //    }
+
+    @GetMapping(value = "/id/{id}")
+    public String getIslaidos(Model model, @PathVariable int id) {
+        Islaidos islaidos = islaidosService.getIslaidosById(id);
+        model.addAttribute("key_islaidos", islaidos);
+        return "islaidos_create";
+    }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public String saveIslaidos(Model model) {
@@ -51,13 +58,5 @@ public class IslaidosController {
         islaidosService.save(islaidos);
         model.addAttribute("key_islaidos", islaidos);
         return "islaidos_create";
-    }
-
-    @GetMapping(value = "/id/{id}")
-    public String getIslaidos(Model model, @PathVariable int id) {
-        Islaidos islaidos = islaidosService.getIslaidosById(id);
-        model.addAttribute("key_islaidos", islaidos);
-        return "islaidos_create";
-
     }
 }
