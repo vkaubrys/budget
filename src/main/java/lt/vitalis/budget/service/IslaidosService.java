@@ -20,4 +20,12 @@ public class IslaidosService {
     public  List<Islaidos> getAll() {
         return (List<Islaidos>) islaidosRepository.findAll();
     }
+
+//    public List<Islaidos> getIslaidosByNameLike (String name){
+//        return islaidosRepository.getIslaidosByNameLike("%" + name + "%");
+//    }
+
+    public Islaidos getIslaidosById(int id) {
+        return islaidosRepository.findById(id).orElse(new Islaidos());
+    }
 }
