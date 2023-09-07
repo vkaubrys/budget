@@ -20,4 +20,8 @@ public class PajamosService {
     public List<Pajamos> getAll() {
         return (List<Pajamos>) pajamosRepository.findAll();
     }
+
+    public Pajamos getPajamosById(int id) {
+        return pajamosRepository.findById(id).orElse(new Pajamos());
+    }
 }
