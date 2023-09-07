@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            background-color: #A1C2F1;
+        }
+
+        .list-table {
+            border-collapse: collapse;
+        }
+
+        .list-tr-td:hover:not(.head-row) {
+          background: #f8b5b5;
+        }
+
+        .list-tr{
+            background-color: white;
+        }
+
+        .list-th{
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .list-td{
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .list-th-td {
+          text-align: left;
+          padding: 10px;
+          border: 3px solid #06283D;
+        }
+
+        .customer-table-container{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+    </style>
+    <script type="text/javascript">
+        function rowClicked(id) {
+            window.open("http://localhost:8080/pajamos/id/" + id, '_self');
+        }
+    </script>
+</head>
+<body>
+
+<div class="customer-table-container">
+    <table class="list-table">
+        <tr>
+            <div style="text-align: right; margin-bottom: 8px; margin-right: 8px;">
+                <a href="http://localhost:8080/home">Home page</a>
+            </div>
+        </tr>
+        <tr>
+            <div style="margin-bottom: 32px; margin-top: 32px;">
+                <form action="#" th:action="@{/pajamos/all}" th:object="${key_pajamos}" method="post">
+                    <label>Pajamos:</label>
+                    <input type="text" th:field="${key_pajamos.pavadinimas}" class="text"/>
+                    <input type="submit" value="Submit" style="background-color: #06283D; color: white;"/>
+                </form>
+            </div>
+        </tr>
+
+        <tr class="list-tr">
+            <th class="list-th list-th-td">ID</th>
+            <th class="list-th list-th-td">Data</th>
+            <th class="list-th list-th-td">Pavadinimas</th>
+            <th class="list-th list-th-td">Suma</th>
+            <th class="list-th list-th-td">Tipas</th>
+        </tr>
+        <tr class="list-tr list-tr-td"
+            th:each="pajamos : ${key_pajamos_list}"
+            th:onclick="'javascript:rowClicked(\'' + ${pajamos.id} + '\');'">
+            <td class="list-th-td list-td" th:text="${pajamos.id}"></td>
+            <td class="list-th-td list-td" th:text="${pajamos.data}"></td>
+            <td class="list-th-td list-td" th:text="${pajamos.pavadinimas}"></td>
+            <td class="list-th-td list-td" th:text="${pajamos.suma}"></td>
+            <td class="list-th-td list-td" th:text="${pajamos.tipas}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
