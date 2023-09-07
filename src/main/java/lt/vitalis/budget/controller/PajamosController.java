@@ -19,9 +19,23 @@ public class PajamosController {
     private PajamosService pajamosService;
 
     // http://localhost:8080/pajamos/all
-    @GetMapping(path = "/all")
-    public @ResponseBody List<Pajamos> generateDummyPajamos() {
-        return pajamosService.getAll();
+//    @GetMapping(path = "/all")
+//    public @ResponseBody List<Pajamos> generateDummyPajamos() {
+//        return pajamosService.getAll();
+//    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String getPajamos(Model model){
+        model.addAttribute("key_pajamos", new Pajamos());
+        model.addAttribute("key_pajamos_list", pajamosService.getAll());
+        return "pajamos_list";
+    }
+
+    @GetMapping(value = "/id/{id}")
+    public String getPajamos(Model model, @PathVariable int id) {
+        Pajamos pajamos = pajamosService.getPajamosById(id);
+        model.addAttribute("key_pajamos", pajamos);
+        return "pajamos_create";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
@@ -36,13 +50,4 @@ public class PajamosController {
         model.addAttribute("key_pajamos", pajamos);
         return "pajamos_create";
     }
-
-    @GetMapping(value = "/id/{id}")
-    public String getPajamos(Model model, @PathVariable int id){
-        Pajamos pajamos = pajamosService.getPajamosById(id);
-        model.addAttribute("key_pajamos", pajamos);
-        return "pajamos_create";
-    }
-
-
 }
