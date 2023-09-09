@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -24,21 +25,25 @@ public class IslaidosController {
 //    }
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public String getIslaidos(Model model){
-        model.addAttribute("key_islaidos", new Islaidos());
+    public String getIslaidos(Model model) {
+        model.addAttribute("dates", new String[]{"s", "k"});
         model.addAttribute("key_islaidos_list", islaidosService.getAll());
         return "islaidos_list";
     }
 
-//    @RequestMapping(value = "/search", method = RequestMethod.POST)
-//    public String getIslaidos(Model model, @ModelAttribute(value = "key_islaidos") Islaidos islaidos){
-//        model.addAttribute("key_islaidos", islaidos);
-//        model.addAttribute(
-//                "key_islaidos_list",
-//                islaidosService.getIslaidosByNameLike(islaidos.getPavadinimas())
-//        );
-//        return "islaidos_list";
-//    }
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String getIslaidos(
+            Model model,
+            @ModelAttribute(value = "dates") String[] datos
+    ) {
+        String[] datos1 = datos;
+        model.addAttribute(
+                "key_islaidos_list",
+                islaidosService.getAll()
+
+        );
+        return "islaidos_list";
+    }
 
     @GetMapping(value = "/id/{id}")
     public String getIslaidos(Model model, @PathVariable int id) {
