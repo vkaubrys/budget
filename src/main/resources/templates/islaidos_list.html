@@ -39,10 +39,12 @@
         }
 
         .customer-table-container{
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+          position: absolute;
+            left: 40%;
+            transform: translate(-60%)
+
+            overflow-y:scroll;
+            height:50px;
         }
 
     </style>
@@ -57,36 +59,47 @@
 <div class="customer-table-container">
     <table class="list-table">
         <tr>
-            <div style="text-align: right; margin-bottom: 8px; margin-right: 8px;">
+            <div style="text-align: center; margin-bottom: 8px; margin-right: 8px;">
                 <a href="http://localhost:8080/home">Home page</a>
             </div>
         </tr>
         <tr>
+            <p>Viso Islaidos:</p>
+        </tr>
+        <tr>
+            <p>Viso Pajamos:</p>
+        </tr>
+        <tr>
             <div style="margin-bottom: 32px; margin-top: 32px;">
-                <form action="#" th:action="@{/islaidos/all}" th:object="${key_islaidos}" method="post">
-                    <label>Išlaidos:</label>
-                    <input type="text" th:field="${key_islaidos.pavadinimas}" class="text"/>
+                <form action="#" th:action="@{/islaidos/search}" th:object="${dates}" method="post">
+                    <div>
+                        <label>Pradzia:</label>
+                        <input type="text" th:field="${dates[0]}" class="text"/>
+                    </div>
+                    <div>
+                        <label>Pabaiga:</label>
+                        <input type="text" th:field="${dates[1]}" class="text"/>
+                    </div>
                     <input type="submit" value="Submit" style="background-color: #06283D; color: white;"/>
                 </form>
             </div>
         </tr>
-
-        <tr class="list-tr">
-            <th class="list-th list-th-td">ID</th>
-            <th class="list-th list-th-td">Data</th>
-            <th class="list-th list-th-td">Pavadinimas</th>
-            <th class="list-th list-th-td">Suma</th>
-            <th class="list-th list-th-td">Tipas</th>
-        </tr>
-        <tr class="list-tr list-tr-td"
-            th:each="islaidos : ${key_islaidos_list}"
-            th:onclick="'javascript:rowClicked(\'' + ${islaidos.id} + '\');'">
-            <td class="list-th-td list-td" th:text="${islaidos.id}"></td>
-            <td class="list-th-td list-td" th:text="${islaidos.data}"></td>
-            <td class="list-th-td list-td" th:text="${islaidos.pavadinimas}"></td>
-            <td class="list-th-td list-td" th:text="${islaidos.suma}"></td>
-            <td class="list-th-td list-td" th:text="${islaidos.tipas}"></td>
-        </tr>
+            <tr class="list-tr">
+                <th class="list-th list-th-td">ID</th>
+                <th class="list-th list-th-td">Data</th>
+                <th class="list-th list-th-td">Pavadinimas</th>
+                <th class="list-th list-th-td">Suma</th>
+                <th class="list-th list-th-td">Tipas</th>
+            </tr>
+            <tr class="list-tr list-tr-td"
+                th:each="islaidos : ${key_islaidos_list} "
+                th:onclick="'javascript:rowClicked(\'' + ${islaidos.id} + '\');'">
+                <td class="list-th-td list-td" th:text="${islaidos.id}"></td>
+                <td class="list-th-td list-td" th:text="${islaidos.data}"></td>
+                <td class="list-th-td list-td" th:text="${islaidos.pavadinimas}"></td>
+                <td class="list-th-td list-td" th:text="${islaidos.suma}"></td>
+                <td class="list-th-td list-td" th:text="${islaidos.tipas}"></td>
+            </tr>
     </table>
 </div>
 
