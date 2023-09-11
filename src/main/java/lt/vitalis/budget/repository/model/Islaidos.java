@@ -22,7 +22,8 @@ public class Islaidos {
     @Column(name = "id")
     private Integer id;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "data")
     private LocalDateTime data;
 
