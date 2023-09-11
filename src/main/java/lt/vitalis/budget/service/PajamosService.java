@@ -5,6 +5,7 @@ import lt.vitalis.budget.repository.model.Pajamos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,5 +24,14 @@ public class PajamosService {
 
     public Pajamos getPajamosById(int id) {
         return pajamosRepository.findById(id).orElse(new Pajamos());
+    }
+
+    public List<Pajamos> getPajamosBetweenDates(LocalDateTime startDate, LocalDateTime endDate){
+        List<Pajamos> list = pajamosRepository.getPajamosBetweenDates(startDate, endDate);
+        return list;
+    }
+
+    public double countPajamosMax(List<Pajamos> pajamuSarasas) {
+        return pajamuSarasas.stream().mapToDouble(Pajamos::getSuma).sum();
     }
 }
