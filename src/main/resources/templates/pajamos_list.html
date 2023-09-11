@@ -39,10 +39,11 @@
         }
 
         .customer-table-container{
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: absolute;
+            left: 40%;
+            transform: translate(-60%)
+            overflow-y:scroll;
+            height:50px;
         }
 
     </style>
@@ -62,10 +63,22 @@
             </div>
         </tr>
         <tr>
+            <p th:text = "'Viso Islaidos: '+${key_islaidos_total}"></p>
+        </tr>
+        <tr>
+            <p th:text = "'Viso Pajamos: '+${key_pajamos_total}"></p>
+        </tr>
+        <tr>
             <div style="margin-bottom: 32px; margin-top: 32px;">
-                <form action="#" th:action="@{/pajamos/all}" th:object="${key_pajamos}" method="post">
-                    <label>Pajamos:</label>
-                    <input type="text" th:field="${key_pajamos.pavadinimas}" class="text"/>
+                <form action="#" th:action="@{/pajamos/search}" th:object="${key_dates}" method="post">
+                    <div>
+                        <label>Pradžia:</label>
+                        <input type="datetime-local" th:field="${key_dates.startDate}" class="text"/>
+                    </div>
+                    <div>
+                        <label>Pabaiga:</label>
+                        <input type="datetime-local" th:field="${key_dates.endDate}" class="text"/>
+                    </div>
                     <input type="submit" value="Submit" style="background-color: #06283D; color: white;"/>
                 </form>
             </div>
