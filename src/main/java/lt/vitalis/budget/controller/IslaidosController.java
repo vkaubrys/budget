@@ -1,6 +1,7 @@
 package lt.vitalis.budget.controller;
 
 import lt.vitalis.budget.repository.model.Islaidos;
+import lt.vitalis.budget.repository.model.SearchDates;
 import lt.vitalis.budget.service.IslaidosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,8 @@ public class IslaidosController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getIslaidos(Model model) {
-        model.addAttribute("dates", new String[]{"s", "k"});
+        model.addAttribute("key_islaidos_total", 0.0);
+        model.addAttribute("key_dates", new SearchDates());
         model.addAttribute("key_islaidos_list", islaidosService.getAll());
         return "islaidos_list";
     }
@@ -34,13 +36,19 @@ public class IslaidosController {
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String getIslaidos(
             Model model,
-            @ModelAttribute(value = "dates") String[] datos
+            @ModelAttribute(value = "key_dates") SearchDates searchDates
     ) {
-        String[] datos1 = datos;
+
+        List<Islaidos> islaiduSarasas = islaidosService.getIslaidosBetweenDates(
+                searchDates.getStartDate(),
+                searchDates.getEndDate()
+        );
+        double islaidosTotal = islaidosService.countIslaidosMax(islaiduSarasas);
+        model.addAttribute("key_islaidos_total", islaidosTotal);
+        model.addAttribute("key_dates", searchDates);
         model.addAttribute(
                 "key_islaidos_list",
-                islaidosService.getAll()
-
+                islaiduSarasas
         );
         return "islaidos_list";
     }
