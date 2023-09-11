@@ -2,6 +2,7 @@ package lt.vitalis.budget.controller;
 
 import lt.vitalis.budget.repository.model.Islaidos;
 import lt.vitalis.budget.repository.model.Pajamos;
+import lt.vitalis.budget.repository.model.SearchDates;
 import lt.vitalis.budget.service.PajamosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,8 +27,30 @@ public class PajamosController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public String getPajamos(Model model){
-        model.addAttribute("key_pajamos", new Pajamos());
+        model.addAttribute("key_pajamos_total", 0.0);
+        model.addAttribute("key_dates", new SearchDates());
         model.addAttribute("key_pajamos_list", pajamosService.getAll());
+        return "pajamos_list";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public String getPajamos(
+            Model model,
+            @ModelAttribute(value = "key_dates") SearchDates searchDates
+    ) {
+
+        List<Pajamos> pajamuSarasas = pajamosService.getPajamosBetweenDates(
+                searchDates.getStartDate(),
+                searchDates.getEndDate()
+        );
+
+        double pajamosTotal = pajamosService.countPajamosMax(pajamuSarasas);
+        model.addAttribute("key_pajamos_total", pajamosTotal);
+        model.addAttribute("key_dates", searchDates);
+        model.addAttribute(
+                "key_pajamos_list",
+                pajamuSarasas
+        );
         return "pajamos_list";
     }
 
